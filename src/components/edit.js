@@ -6,23 +6,26 @@ class Edit extends Component {
     constructor() {
         super();
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChangeMovieName = this.onChangeMovieName.bind(this);
-        this.onChangeMovieYear = this.onChangeMovieYear.bind(this);
-        this.onChangeMoviePoster = this.onChangeMoviePoster.bind(this);
+        this.onChangeRestaurantName = this.onChangeRestaurantName.bind(this);
+        this.onChangeRating = this.onChangeRating.bind(this);
+        this.onChangePicture = this.onChangePicture.bind(this);
+        this.onChangeReview = this.onChangeReview.bind(this);
         this.state = {
-            Title: '',
-            Year: '',
-            Poster: ''
+            RestaurantName: '',
+            Rating: '',
+            Picture: '',
+            Review: ''
         }
     }
 
     componentDidMount(){
-        axios.get('http://localhost:4000/api/movies/'+ this.props.match.params.id)
+        axios.get('http://localhost:4000/api/reviews/'+ this.props.match.params.id)
         .then((response)=>{
             this.setState({
-                Title:response.data.Title,
-                Year:response.data.Year,
-                Poster:response.data.Poster,
+                RestaurantName:response.data.RestaurantName,
+                Picture:response.data.Picture,
+                Rating:response.data.Rating,
+                Review:response.data.Review,
                 _id:response.data._id
             })
         })
@@ -30,80 +33,100 @@ class Edit extends Component {
     }
 
     handleSubmit(event) {
-        console.log("Name: " +this.state.Title+
-        " Year: " + this.state.Year +
-        "Poster: " + this.state.Poster);
+        console.log("Restaurant Name: " +this.state.RestaurantName+
+        " Rating: " + this.state.Rating +
+        " Picture: " + this.state.Picture +
+        " Review: " + this.state.Review);
 
-        const NewMovie = {
-            Title: this.state.Title,
-            Year: this.state.Year,
-            Poster: this.state.Poster
+        const NewReview = {
+            RestaurantName: this.state.RestaurantName,
+            Rating: this.state.Rating,
+            Picture: this.state.Picture,
+            Review: this.state.Review
         }
 
-        axios.put('http://localhost:4000/api/movies/' + this.state._id, NewMovie)
+        axios.put('http://localhost:4000/api/reviews/' + this.state._id, NewReview)
         .then((response)=>{console.log(response)})
         .catch();
         
 
         event.preventDefault();
         this.setState({
-            Title:'',
-            Year:'',
-            Poster:''
+            RestaurantName: '',
+            Rating: '',
+            Picture: '',
+            Review: ''
         });
     }
-    onChangeMovieName(event) {
+
+    onChangeRestaurantName(event) {
         this.setState({
-            Title: event.target.value
+            RestaurantName: event.target.value
         })
     }
-    onChangeMovieYear(event) {
+    onChangeRating(event) {
         this.setState({
-            Year: event.target.value
+            Rating: event.target.value
         })
+        
     }
-    onChangeMoviePoster(event){
+    onChangePicture(event) {
         this.setState({
-            Poster: event.target.value
+            Picture: event.target.value
+        })
+        
+    }
+    onChangeReview(event){
+        this.setState({
+            Review: event.target.value
         })
     }
 
     render() {
         return (
             <div>
-                <h1>This is my Edit Component!</h1>
+                <h1>Here you can Edit or Update your Review!</h1>
+                <br></br>
                 <form onSubmit={this.handleSubmit}>
 
-                    <div className="form-group">
-                        <label>Edit Movie Name: </label>
-                        <input type="text"
-                            className="form-control"
-                            value={this.state.Title}
-                            onChange={this.onChangeMovieName}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Edit Movie Year: </label>
-                        <input type="text"
-                            className="form-control"
-                            value={this.state.Year}
-                            onChange={this.onChangeMovieYear}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Edit Movie Poster: </label>
-                        <textarea type="text"
-                            className="form-control"
-                            value={this.state.Poster}
-                            onChange={this.onChangeMoviePoster}
-                        />
-                    </div>
-                    <div>
-                        <input type="submit" value="Edit Movie"
-                            className="btn btn-primary"></input>
-                    </div>
-                </form>
+                <div className="form-group">
+                <label><h2>Edit Restaurant Name:</h2> </label>
+                <input type="text"
+                    className="form-control"
+                    value={this.state.RestaurantName}
+                    onChange={this.onChangeRestaurantName}
+                />
             </div>
+            <div className="form-group">
+            <label><h2>Edit Rating: </h2></label>
+                <input type="text"
+                    className="form-control"
+                    value={this.state.Rating}
+                    onChange={this.onChangeRating}
+                />
+                </div>
+            <div className="form-group">
+            <label><h2>Edit Picture:</h2> </label>
+                <input type="text"
+                    className="form-control"
+                    value={this.state.Picture}
+                    onChange={this.onChangePicture}
+                />
+            </div>
+            <div className="form-group">
+            <label><h2>Edit Review:</h2> </label>
+                <textarea type="text"
+                    className="form-control"
+                    value={this.state.Review}
+                    onChange={this.onChangeReview}
+                />
+            </div>
+            <div>
+                <input type="submit" value="Edit/Update"
+                    className="btn btn-primary"></input>
+            </div>
+        </form>
+        </div>
         );
     }
 }

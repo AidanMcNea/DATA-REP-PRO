@@ -1,12 +1,14 @@
-import React, {Component} from 'react';
+import React, { Component } from "react"; //impoted react
 
-class Header extends Component {
+export class Header extends Component //auto imported export so as designed for export
+{
     render(){
+
+        //html code
         return(
-        <div>
-            <h1>This is my Header Component.</h1>
-        </div>
+            <div>
+                <h1>This is my Header component</h1>
+            </div>
         );
     }
 }
-export default Header;

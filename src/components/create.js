@@ -1,32 +1,38 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+//this is where you can add a review
 
 class Create extends Component {
     constructor() {
-        super();
+        super();//takes in everything the user inputs
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onChangeMovieName = this.onChangeMovieName.bind(this);
-        this.onChangeMovieYear = this.onChangeMovieYear.bind(this);
-        this.onChangeMoviePoster = this.onChangeMoviePoster.bind(this);
+        this.onChangeRestaurantName = this.onChangeRestaurantName.bind(this);
+        this.onChangeRating = this.onChangeRating.bind(this);
+        this.onChangePicture = this.onChangePicture.bind(this);
+        this.onChangeReview = this.onChangeReview.bind(this);
         this.state = {
-            Title: '',
-            Year: '',
-            Poster: ''
+            RestaurantName: '',
+            Rating: '',
+            Picture: '',
+            Review: ''
         }
     }
 
-    handleSubmit(event) {
-        console.log("Name: " +this.state.Title+
-        " Year: " + this.state.Year +
-        "Poster: " + this.state.Poster);
+    handleSubmit(event) {//log the event with the user inputs
+        console.log("Restaurant Name: " +this.state.RestaurantName+
+        " Rating: " + this.state.Rating +
+        " Picture: " + this.state.Picture +
+        " Review: " + this.state.Review);
 
-        const NewMovie = {
-            Title: this.state.Title,
-            Year: this.state.Year,
-            Poster: this.state.Poster
+        const NewReview = {//add the inputs a review
+            RestaurantName: this.state.RestaurantName,
+            Rating: this.state.Rating,
+            Picture: this.state.Picture,
+            Review: this.state.Review
         }
 
-        axios.post('http://localhost:4000/api/movies', NewMovie)
+        //post that to the schema
+        axios.post('http://localhost:4000/api/reviews', NewReview)
         .then((response)=>{
             console.log(response)
         })
@@ -35,64 +41,83 @@ class Create extends Component {
         })
 
         event.preventDefault();
-        this.setState({
-            Title:'',
-            Year:'',
-            Poster:''
+        this.setState({//cant be empty
+            RestaurantName: '',
+            Rating: '',
+            Picture: '',
+            Review: ''
         });
     }
-    onChangeMovieName(event) {
+
+    onChangeRestaurantName(event) {
         this.setState({
-            Title: event.target.value
+            RestaurantName: event.target.value
         })
     }
-    onChangeMovieYear(event) {
+    onChangeRating(event) {
         this.setState({
-            Year: event.target.value
+            Rating: event.target.value
         })
+        
     }
-    onChangeMoviePoster(event){
+    onChangePicture(event) {
         this.setState({
-            Poster: event.target.value
+            Picture: event.target.value
+        })
+        
+    }
+    onChangeReview(event){
+        this.setState({
+            Review: event.target.value
         })
     }
 
-    render() {
-        return (
+    render(){//ui for the add review page
+        return(
             <div>
-                <h1>This is my Create Component!</h1>
-                <form onSubmit={this.handleSubmit}>
+            <h1>Add Your Restaurant Review!</h1>
+            <br></br>
+            <form onSubmit={this.handleSubmit}>
 
-                    <div className="form-group">
-                        <label>Add Movie Name: </label>
-                        <input type="text"
-                            className="form-control"
-                            value={this.state.Title}
-                            onChange={this.onChangeMovieName}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Add Movie Year: </label>
-                        <input type="text"
-                            className="form-control"
-                            value={this.state.Year}
-                            onChange={this.onChangeMovieYear}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Add Movie Poster: </label>
-                        <textarea type="text"
-                            className="form-control"
-                            value={this.state.Poster}
-                            onChange={this.onChangeMoviePoster}
-                        />
-                    </div>
-                    <div>
-                        <input type="submit" value="Add Movie"
-                            className="btn btn-primary"></input>
-                    </div>
-                </form>
+            <div className="form-group">
+                <label><h2>Add Restaurant Name:</h2> </label>
+                <input type="text"
+                    className="form-control"
+                    value={this.state.RestaurantName}
+                    onChange={this.onChangeRestaurantName}
+                />
             </div>
+            <div className="form-group">
+                <label><h2>Choose Rating: </h2></label>
+                <input type="text"
+                    className="form-control"
+                    value={this.state.Rating}
+                    onChange={this.onChangeRating}
+                />
+                </div>
+            <div className="form-group">
+                <label><h2>Add Picture:</h2> </label>
+                <input type="text"
+                    className="form-control"
+                    value={this.state.Picture}
+                    onChange={this.onChangePicture}
+                />
+            </div>
+            <div className="form-group">
+                <label><h2>Add Review:</h2> </label>
+                <textarea type="text"
+                    className="form-control"
+                    value={this.state.Review}
+                    onChange={this.onChangeReview}
+                />
+            </div>
+            <div>
+                <input type="submit" value="Submit"
+                    className="btn btn-primary"></input>
+            </div>
+        </form>
+        </div>
+    
         );
     }
 }

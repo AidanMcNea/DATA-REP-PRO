@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Movies from './movies';
+import Reviews from './reviews';
 import axios from 'axios';
 
 class Read extends Component
@@ -10,9 +10,9 @@ class Read extends Component
     }
 
     ReloadData(){
-        axios.get('http://localhost:4000/api/movies')
+        axios.get('http://localhost:4000/api/reviews')
         .then((response)=>{
-            this.setState({mymovies: response.data})
+            this.setState({myreviews: response.data})
         })
         .catch((error)=>{
             console.log(error);
@@ -20,9 +20,9 @@ class Read extends Component
     }
 
     componentDidMount(){
-        axios.get('http://localhost:4000/api/movies')
+        axios.get('http://localhost:4000/api/reviews')
         .then((response)=>{
-            this.setState({mymovies: response.data})
+            this.setState({myreviews: response.data})
         })
         .catch((error)=>{
             console.log(error);
@@ -30,14 +30,16 @@ class Read extends Component
     }
 
     state = {
-        mymovies: []            
+        myreviews: []            
     };
 
     render(){
+        //displaying all reviews
         return(
             <div>
-                <h1>This is my Read component!</h1>
-                <Movies films={this.state.mymovies} ReloadData={this.ReloadData}></Movies>
+                <h1>Our Reviews!</h1>
+                
+                <Reviews films={this.state.myreviews} ReloadData={this.ReloadData}></Reviews>
             </div>
         );
     }

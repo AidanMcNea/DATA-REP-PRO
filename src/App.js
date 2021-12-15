@@ -20,27 +20,58 @@ import Edit from './components/edit';
 class App extends Component {
   render() {
     return (
-      <Router>
-      <div className="App">
-        <Navbar bg="primary" variant="dark">
-          <Container>
-            <Navbar.Brand href="/">Navbar</Navbar.Brand>
-            <Nav className="me-auto">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/read">Read</Nav.Link>
-              <Nav.Link href="/create">Create</Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
-        <Switch>
-          <Route path="/" exact><Content /></Route>
-          <Route path="/create"><Create></Create></Route>
-          <Route path="/read"><Read></Read></Route>
-          <Route path={"/edit/:id"} component={Edit}></Route>
-        </Switch>
+      <div>
+        <Router>
+          <div className="App">
+            <Navbar bg="dark" variant="dark">
+              <Container>
+                <Navbar.Brand href="/">FoodReview</Navbar.Brand>
+                <Nav className="me-auto">
+                  <Nav.Link href="/">Home</Nav.Link>
+                  <Nav.Link href="/create">Add Review</Nav.Link>
+                  <Nav.Link href="/read">Display Reviews</Nav.Link>
+                </Nav>
+              </Container>
+            </Navbar>
+            <br></br>
+            
+            <Switch>
+     <Route path="/" exact><Content /></Route>
+         <Route path="/create"><Create></Create></Route>
+           <Route path="/read"><Read></Read></Route>
+           <Route path={"/edit/:id"} component={Edit}></Route>
+         </Switch>
+          </div>
+        </Router>
       </div>
-      </Router>
     );
   }
 }
+
+// class App extends Component {
+//   render() {
+//     return (
+//       <Router>
+//       <div className="App">
+//         <Navbar bg="primary" variant="dark">
+//           <Container>
+//             <Navbar.Brand href="/">Navbar</Navbar.Brand>
+//             <Nav className="me-auto">
+//               <Nav.Link href="/">Home</Nav.Link>
+//               <Nav.Link href="/read">Read</Nav.Link>
+//               <Nav.Link href="/create">Create</Nav.Link>
+//             </Nav>
+//           </Container>
+//         </Navbar>
+//         <Switch>
+//           <Route path="/" exact><Content /></Route>
+//           <Route path="/create"><Create></Create></Route>
+//           <Route path="/read"><Read></Read></Route>
+//           <Route path={"/edit/:id"} component={Edit}></Route>
+//         </Switch>
+//       </div>
+//       </Router>
+//     );
+//   }
+// }
 export default App;
